@@ -82,6 +82,19 @@ class Tree{
       }
       return node;
     }
+
+    find(value){
+      const findRecursive = (node, value) =>  {
+        if(node === null) return null;
+        if(node.data === value) return node;
+        if(value < node.data){
+          return findRecursive(node.left, value);
+        } else{
+          return findRecursive(node.right, value);
+        }
+      };
+      return findRecursive(this.root, value); 
+    }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
