@@ -30,7 +30,58 @@ class Tree{
         return node;
     }
 
+    insert(value){
+      const newNode = new Node(value);
+      if(this.root === null){
+        this.root = newNode;
+        return;
+      }
+      const insertRecursive = (node, newNode) => {
+        if(newNode.data < node.data){
+          if(node.left === null){
+            node.left = newNode;
+          } else {
+            insertRecursive(node.left, newNode);
+          }
+        } else if(newNode.data > node.data){
+          if(node.right === null){
+            node.right = newNode;
+          } else {
+            insertRecursive(node.right, newNode);
+          }
+        }
+      };
+      insertRecursive(this.root, newNode);
+    }
 
+    deleteItem(value){
+      const deleteRecursive = (node, value) => {
+        if(node === null) return node;
+        if(value < node.data){
+          node.left = deleteRecursive(node.left, value);
+        } else if(value > node.data){
+          node.right = deleteRecursive(node.right, value);
+        } else {
+          if(node.left === null && node.right === null){
+            return null;
+          }
+          if(node.left === null) return node.right;
+          if(node.right === null) return node.left;
+          let minNode = this.findMin(node.right);
+          node.data = minNode.data;
+          node.right = deleteRecursive(node.right, minNode.data);
+        }
+        return node;
+      };
+      this.root = deleteRecursive(this.root, value);
+    }
+    
+    findMin(node){
+      while(node.left !== null){
+        node = node.left;
+      }
+      return node;
+    }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
