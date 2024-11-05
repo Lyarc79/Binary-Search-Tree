@@ -186,7 +186,7 @@ class Tree{
       this.inOrder(node =>{
         values.push(node.data);
       })
-      this.root = buildTree(values);
+      this.root = this.buildTree(values);
     }
 }
 
@@ -203,5 +203,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
   };
 
-const testTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-prettyPrint(testTree.root);
+module.exports = {Node, Tree};
