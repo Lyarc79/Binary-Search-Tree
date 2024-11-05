@@ -142,6 +142,29 @@ class Tree{
         callback(node);
       }
     }
+
+    height(node){
+      if(node === null) return -1;
+      const leftHeight = this.height(node.left);
+      const rightHeight = this.height(node.right);
+      return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    depth(node){
+      let current = this.root;
+      let depth = 0;
+      while(current !== null){
+        if(current === node){
+          return depth;
+        } else if(node.data < current.data){
+          current = current.left;
+        } else{
+          current = current.right;
+        }
+        depth++;
+      }
+      return -1;
+    }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
