@@ -165,6 +165,29 @@ class Tree{
       }
       return -1;
     }
+
+    isBalanced(){
+      const checkBalance = (node) => {
+        if(node === null) {
+          return {height: -1, balanced: true};
+        }
+        const left = checkBalance(node.left);
+        const right = checkBalance(node.right);
+        const height = Math.max(left.height, right.height) + 1;
+        const balanced = left.balanced && right.balanced && Math.abs(left.height - right.height) <= 1;
+        return {height, balanced};
+      }
+      return checkBalance(this.root).balanced;
+    }
+
+    rebalance(){
+      if(this.isBalanced()) return;
+      let values = [];
+      this.inOrder(node =>{
+        values.push(node.data);
+      })
+      this.root = buildTree(values);
+    }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
